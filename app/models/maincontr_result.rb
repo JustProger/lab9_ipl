@@ -1,11 +1,21 @@
 # frozen_string_literal: true
 
+class EquationOfNumberAndSequenceNumberValidator < ActiveModel::Validator
+  def validate(record)
+    if record.query_sequence.split.map(&:to_i).size != record.query_number.to_i
+      record.errors.add :base, 'Количество введённых чисел последовательности не соответствует тому, что было введено'
+    end
+  end
+end
+
 # MaincontrResult (не наследуемся от ApplicationRecord)
 class MaincontrResult
 	include ActiveModel::Model # примешиваем методы для модели из ActiveModel
 	include ActiveModel::Validations # примешиваем методы для валидаций из ActiveModel
 
 	attr_accessor :query_number, :query_sequence # создаем аттрибуты модели вручную, так как здесь нет связи с таблицей в БД
+
+	# -------- Проверки -------------------------------------------------------------------------------------------------------
 
 	validates :query_number, :query_sequence, presence: { message: 'не может быть пустым' } # проверка на обязательное наличие полей
 	validates :query_number, format: { with: /\d/, message: 'должно быть натуральным числом' }
@@ -18,11 +28,15 @@ class MaincontrResult
 		validates :query_sequence, format: { with: el[:ptrn], message: el[:err_msg] }
 	end
 
+	validates_with EquationOfNumberAndSequenceNumberValidator
+
+	# -------------------------------------------------------------------------------------------------------------------------
+
 	# выполняем расчет сразу в модели, а не в контроллере
 	def result
 		array = query_sequence.split.map(&:to_i)
 		number = query_number.to_i
-		raise ArgumentError, 'Количество введённых чисел последовательности не соответствует тому, что было введено' if number != array.size
+		# raise ArgumentError, 'Количество введённых чисел последовательности не соответствует тому, что было введено' if number != array.size
 		enum = array.slice_when do |before, after|
 				before_mod = is_square?(before)
 				after_mod = is_square?(after)
@@ -41,5 +55,9 @@ class MaincontrResult
 
 	def is_square?(x)
 		(Math.sqrt(x) % 1).zero?
+	end
+
+	def check_number_and_sequence_number
+		[query_sequence.split.map(&:to_i).size, query_number.to_i]
 	end
 end
