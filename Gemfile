@@ -70,4 +70,6 @@ group :test do
   gem 'rails-controller-testing'
   gem 'faker'
   gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'webdrivers'
 end

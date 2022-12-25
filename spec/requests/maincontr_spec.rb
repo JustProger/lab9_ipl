@@ -24,8 +24,7 @@ RSpec.describe 'Maincontrs', type: :request do
   describe 'GET /result' do
     # Сценарий, когда параметры неправильные
     context 'when params are invalid' do
-      # перед каждым тестом делать запрос (xhr: true - значит асинхронно, чтобы работал turbo)
-
+      # создаем случайные значения
       let(:query_number) { Faker::Number.within(range: 10..20) }
       let(:query_sequence) do
         mas = []
@@ -33,6 +32,7 @@ RSpec.describe 'Maincontrs', type: :request do
         mas.join(Faker::Alphanumeric.alpha(number: 1)) # намеренно соединяем числа в строку при помощи рандомной буквы
       end
 
+      # перед каждым тестом делать запрос (xhr: true - значит асинхронно, чтобы работал turbo)
       before { post result_path, params: { query_number: query_number, query_sequence: query_sequence }, xhr: true }
 
       it 'returns http success' do
