@@ -26,14 +26,14 @@ RSpec.describe 'Maincontrs', type: :request do
     context 'when params are invalid' do
       # перед каждым тестом делать запрос (xhr: true - значит асинхронно, чтобы работал turbo)
 
-      let(:query_number) { @var_query_number = Faker::Number.within(range: 10..20) }
+      let(:query_number) { Faker::Number.within(range: 10..20) }
       let(:query_sequence) do
         mas = []
-        @var_query_number.times { mas << Faker::Number.number(digits: 3) }
+        query_number.times { mas << Faker::Number.number(digits: 3) }
         mas.join(Faker::Alphanumeric.alpha(number: 1)) # намеренно соединяем числа в строку при помощи рандомной буквы
       end
 
-      before { post result_path, params: { query_number:, query_sequence: }, xhr: true }
+      before { post result_path, params: { query_number: query_number, query_sequence: query_sequence }, xhr: true }
 
       it 'returns http success' do
         expect(response).to have_http_status(:success)
@@ -57,15 +57,15 @@ RSpec.describe 'Maincontrs', type: :request do
     # Сценарий, когда парамаетры правильные
     context 'when params are ok' do
       # создаем случайные значения
-      let(:query_number) { @var_query_number = Faker::Number.number(digits: 2) }
+      let(:query_number) { Faker::Number.within(range: 10..20) }
       let(:query_sequence) do
         mas = []
-        @var_query_number.times { mas << Faker::Number.number(digits: 3) }
+        query_number.times { mas << Faker::Number.number(digits: 3) }
         mas.join(' ')
       end
 
       # перед каждым тестом делать запрос (params - параметры запроса, xhr: true - выполнить асинхронно, чтобы работал turbo)
-      before { post result_path, params: { query_number:, query_sequence: }, xhr: true }
+      before { post result_path, params: { query_number: query_number, query_sequence: query_sequence }, xhr: true }
 
       it 'returns http success' do
         expect(response).to have_http_status(:success)

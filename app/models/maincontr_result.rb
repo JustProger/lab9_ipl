@@ -2,7 +2,8 @@
 
 class EquationOfNumberAndSequenceNumberValidator < ActiveModel::Validator
   def validate(record)
-    if record.query_sequence.split.map(&:to_i).size != record.query_number.to_i
+		# добавлена проверка на равенство nil, т. к. в ином случае в тестах модуля MaincontrResult в файле maincontr_result_spec.rb возникает ошибка, связанная с невозможностью применить .split к объекту nil (т. е. query_sequence не инициализирован?)
+    if (!record.query_sequence.nil? ? record.query_sequence.split.map(&:to_i).size : 'for tests of this model') != record.query_number.to_i
       record.errors.add :base, 'Количество введённых чисел последовательности не соответствует тому, что было введено'
     end
   end
@@ -55,9 +56,5 @@ class MaincontrResult
 
 	def is_square?(x)
 		(Math.sqrt(x) % 1).zero?
-	end
-
-	def check_number_and_sequence_number
-		[query_sequence.split.map(&:to_i).size, query_number.to_i]
 	end
 end
