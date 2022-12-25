@@ -1,20 +1,29 @@
-<h2>Результат</h2>
-<h3>Полученный ответ:</h3>
-<% if @sequences.empty? %>
+<% if @maincontr.valid? %>
+  <h2>Результат</h2>
+  <h3>Полученный ответ:</h3>
+  <% if @result[:sequences].empty? %>
     <h1>последовательностей не найдено</h1>
   <% else %>
     <table>
       <tr>
         <td>последовательности</td>
-        <td><%= @sequences %></td>
+        <td><%= @result[:sequences] %></td>
       </tr>
       <tr>
         <td>максимальная последовательность</td>
-        <td><%= @maxsequence %></td>
+        <td><%= @result[:maxsequence] %></td>
       </tr>
       <tr>
         <td>количество последовательностей</td>
-        <td><%= @sequences_number %></td>
+        <td><%= @result[:sequences_number] %></td>
       </tr>
     </table>
   <% end %>
+<% else %>
+  <h2>Ошибки ввода:<h2>
+  <ul>
+    <% @maincontr.errors.each do |error| %>
+	  <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+<% end %>

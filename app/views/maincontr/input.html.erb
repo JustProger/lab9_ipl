@@ -4,12 +4,12 @@
 <%= form_with url: result_path do |form| %>
   <table>
     <tr>
-      <td><%= form.label :number, 'Введите количество элементов последовательности' %></td>
-      <td><%= form.number_field :number, placeholder: "Количество элементов последовательности", value: "12" %></td>
+      <td><%= form.label :query_number, 'Введите количество элементов последовательности' %></td>
+      <td><%= form.number_field :query_number, placeholder: "Количество элементов последовательности", value: "12" %></td>
     </tr>
     <tr>
-      <td><%= form.label :query, 'Введите последовательность' %></td>
-      <td><%= form.text_field :query, placeholder: "Последовательность", value: "1 4 25 64 43 16 59 10 12 13 81 121" %></td>
+      <td><%= form.label :query_sequence, 'Введите последовательность' %></td>
+      <td><%= form.text_field :query_sequence, placeholder: "Последовательность", value: "1 4 25 64 43 16 59 10 12 13 81 121" %></td>
     </tr>
   </table>
   <br>

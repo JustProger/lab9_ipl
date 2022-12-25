@@ -9,22 +9,12 @@ class MaincontrController < ApplicationController
   def input; end
 
   def result
-    array = @input_sequence.split.map(&:to_i)
-    number = @input_number_of_sequence_els.to_i
-    # if number == array.size
-      enum = array.slice_when do |before, after|
-        before_mod = is_square?(before)
-        after_mod = is_square?(after)
-        (!before_mod && after_mod) || (before_mod && !after_mod)
-      end
-    # else
-      # redirect_to(root_path,
-      #             notice: [-2, 'Количество элементов массива не совпадает с тем, что была введено!!!', nil, nil])
-    # end
+    @maincontr = MaincontrResult.new(maincontr_params)
+    @result = @maincontr.result
+  end
 
-    @sequences = enum.to_a.select { |array| array.any? { |element| is_square?(element) } }
-    @maxsequence = @sequences.max_by(&:size)
-    @sequences_number = @sequences.size
+  def maincontr_params
+    params.permit(:query_number, :query_sequence) # явно задаем, какие параметры разрешены
   end
 
   # def show
