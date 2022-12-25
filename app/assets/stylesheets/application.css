@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 3px; /* Поля вокруг содержимого таблицы */
+  border: 1px solid black; /* Параметры рамки */
+}

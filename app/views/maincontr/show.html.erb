@@ -1,0 +1,23 @@
+<h1>Maincontr#show</h1>
+<p>Find me in app/views/maincontr/show.html.erb</p>
+
+<% if @sequences.empty? %>
+    <h1>последовательностей не найдено</h1>
+  <% else %>
+    <table>
+      <tr>
+        <td>последовательности</td>
+        <td><%= @sequences %></td>
+      </tr>
+      <tr>
+        <td>максимальная последовательность</td>
+        <td><%= @maxsequence %></td>
+      </tr>
+      <tr>
+        <td>количество последовательностей</td>
+        <td><%= @sequences_number %></td>
+      </tr>
+    </table>
+  <% end %>
+
+<%= link_to 'Перейти на страницу ввода', maincontr_input_url %>

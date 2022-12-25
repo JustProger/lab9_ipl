@@ -1,0 +1,12 @@
+<h1>Maincontr#input</h1>
+<p>Find me in app/views/maincontr/input.html.erb</p>
+<p>Введите исходные данные:</p>
+<%= form_with url: '/maincontr/show', method: :get do |form| %>
+	<%= form.label :query, "Поле ввода:" %>
+  <br>
+  <%= form.text_field :number, placeholder: "Количество элементов последовательности", value: "12" %>
+  <br>
+  <%= form.text_field :query, placeholder: "Последовательность", value: "1 4 25 64 43 16 59 10 12 13 81 121" %>
+  <br>
+  <%= form.submit "Обработать:" %>
+<% end %>
