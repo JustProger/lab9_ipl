@@ -1,24 +1,41 @@
-# README
+## Запуск проекта и тестов
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Для того чтобы запустить данный проект локально надо выполнить следующие пункты
+1. Клонирование проекта 
 
-Things you may want to cover:
+	Склонировать проект из репозитория с помощью команды:
+	```console
+	git clone git@github.com:JustProger/lab9_ipl.git
+	```
 
-* Ruby version
+	или (если не настроен ssh-ключ в личном аккаунте на github):
 
-* System dependencies
+	```console
+	git clone https://github.com/JustProger/lab9_ipl.git
+	```
 
-* Configuration
+2. Запуск приложения 
 
-* Database creation
+	После успешного клонирования надо перейти в корневую директорию проекта и установить зависимости проекта:
+	```console
+	bundle install
+	```
 
-* Database initialization
+	После этого можно запускать проект:
+	```console
+	rails s
+	```
 
-* How to run the test suite
+3. Запуск тестов
 
-* Services (job queues, cache servers, search engines, etc.)
+	Чтобы запустить все тесты сразу:
+	```console
+	rspec
+	```
 
-* Deployment instructions
-
-* ...
+	Чтобы запускать тесты контроллера/модели/системные отдельно:
+	```console
+	rspec spec/requests/calculator_spec.rb
+	rspec spec/models/calculator_result.rb
+	rspec spec/system/calculator_spec.rb
+	```
