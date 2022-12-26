@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  # get 'maincontr/input'
-  # get 'maincontr/show'
-
   # post '/maincontr/result'
   post '/result', to: 'maincontr#result'
 
