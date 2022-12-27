@@ -9,7 +9,7 @@ RSpec.describe 'Static content', type: :system do
     i = 1
     mas = []
     query_number.times do
-      mas << ((i > 3) ? (i ** 2) : i)
+      mas << (i > 3 ? (i**2) : i)
       i += 1
     end
     mas.join(' ')
@@ -18,19 +18,19 @@ RSpec.describe 'Static content', type: :system do
     array = query_sequence.split.map(&:to_i)
     number = query_number.to_i
     enum = array.slice_when do |before, after|
-        before_mod = (Math.sqrt(before) % 1).zero?
-        after_mod = (Math.sqrt(after) % 1).zero?
-        (!before_mod && after_mod) || (before_mod && !after_mod)
+      before_mod = (Math.sqrt(before) % 1).zero?
+      after_mod = (Math.sqrt(after) % 1).zero?
+      (!before_mod && after_mod) || (before_mod && !after_mod)
     end
 
     sequences = enum.to_a.select { |array| array.any? { |element| (Math.sqrt(element) % 1).zero? } }
     {
-      :sequences => sequences,
-      :maxsequence => sequences.max_by(&:size),
-      :sequences_number => sequences.size
+      sequences:,
+      maxsequence: sequences.max_by(&:size),
+      sequences_number: sequences.size
     }
   end
-  
+
   let(:query_number1) { 10 }
   let(:query_sequence1) { '2 3 5 6 7 8 10 11 12 13' }
 
@@ -44,9 +44,9 @@ RSpec.describe 'Static content', type: :system do
     find('#calculate-btn').click # нажимаем на кнопку с id="calculate_btn"
 
     # ожидаем найти в контенере вывода правильное содержимое
-    expect(find('#result-container')).to have_text("#{result[:sequences]}")
-    expect(find('#result-container')).to have_text("#{result[:maxsequence]}")
-    expect(find('#result-container')).to have_text("#{result[:sequences_number]}")
+    expect(find('#result-container')).to have_text(result[:sequences].to_s)
+    expect(find('#result-container')).to have_text(result[:maxsequence].to_s)
+    expect(find('#result-container')).to have_text(result[:sequences_number].to_s)
   end
 
   scenario 'when there is NO sequence in given data' do
@@ -58,7 +58,7 @@ RSpec.describe 'Static content', type: :system do
     find('#calculate-btn').click # нажимаем на кнопку с id="calculate_btn"
 
     # ожидаем найти в контенере вывода правильное содержимое
-    expect(find('#result-container')).to have_text("последовательностей не найдено")
+    expect(find('#result-container')).to have_text('последовательностей не найдено')
   end
 
   # сценарий неправильного ввода формы

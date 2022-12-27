@@ -33,7 +33,7 @@ RSpec.describe 'Maincontrs', type: :request do
       end
 
       # перед каждым тестом делать запрос (xhr: true - значит асинхронно, чтобы работал turbo)
-      before { post result_path, params: { query_number: query_number, query_sequence: query_sequence }, xhr: true }
+      before { post result_path, params: { query_number:, query_sequence: }, xhr: true }
 
       it 'returns http success' do
         expect(response).to have_http_status(:success)
@@ -65,7 +65,7 @@ RSpec.describe 'Maincontrs', type: :request do
       end
 
       # перед каждым тестом делать запрос (params - параметры запроса, xhr: true - выполнить асинхронно, чтобы работал turbo)
-      before { post result_path, params: { query_number: query_number, query_sequence: query_sequence }, xhr: true }
+      before { post result_path, params: { query_number:, query_sequence: }, xhr: true }
 
       it 'returns http success' do
         expect(response).to have_http_status(:success)

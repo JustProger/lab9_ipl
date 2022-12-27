@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.describe MaincontrResult, type: :model do
   # тестируем валидации
   describe 'validations' do
-
     # тестируем, что модель проверяет наличие параметров и выводит соответствующее сообщение
     it { should validate_presence_of(:query_number).with_message('не может быть пустым') }
     it { should validate_presence_of(:query_sequence).with_message('не может быть пустым') }
@@ -23,7 +22,7 @@ RSpec.describe MaincontrResult, type: :model do
         mas = []
         query_number.times { mas << Faker::Number.number(digits: 3) }
         mas.join(' ')
-      end #--------------------------------------------------------------------------------
+      end
 
       it { should allow_value(query_number).for(:query_number) }
       it { should allow_value(query_sequence).for(:query_sequence) }
@@ -37,12 +36,12 @@ RSpec.describe MaincontrResult, type: :model do
       mas = []
       query_number.times do
         temp = Faker::Number.number(digits: 1) + 1
-         mas << temp**2 if temp > 3
+        mas << temp**2 if temp > 3
       end
       mas.sort!
       mas.join(' ')
     end
-    let(:params) { { query_number: query_number, query_sequence: query_sequence } }
+    let(:params) { { query_number:, query_sequence: } }
 
     subject { described_class.new(params) }
 
@@ -50,16 +49,16 @@ RSpec.describe MaincontrResult, type: :model do
       array = query_sequence.split.map(&:to_i)
       number = query_number.to_i
       enum = array.slice_when do |before, after|
-          before_mod = (Math.sqrt(before) % 1).zero?
-          after_mod = (Math.sqrt(after) % 1).zero?
-          (!before_mod && after_mod) || (before_mod && !after_mod)
+        before_mod = (Math.sqrt(before) % 1).zero?
+        after_mod = (Math.sqrt(after) % 1).zero?
+        (!before_mod && after_mod) || (before_mod && !after_mod)
       end
 
       sequences = enum.to_a.select { |array| array.any? { |element| (Math.sqrt(element) % 1).zero? } }
       {
-        :sequences => sequences,
-        :maxsequence => sequences.max_by(&:size),
-        :sequences_number => sequences.size
+        sequences:,
+        maxsequence: sequences.max_by(&:size),
+        sequences_number: sequences.size
       }
     end
 
