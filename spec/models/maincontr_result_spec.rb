@@ -9,13 +9,13 @@ RSpec.describe MaincontrResult, type: :model do
     it { should validate_presence_of(:query_number).with_message('не может быть пустым') }
     it { should validate_presence_of(:query_sequence).with_message('не может быть пустым') }
 
-    # тестируем валидации, когда x и y не являются числами
+    # тестируем валидации, когда query_number и query_sequence не являются числами
     context 'when query_number or query_sequence are not digits' do
       it { should_not allow_value(Faker::Lorem.word).for(:query_number) }
       it { should_not allow_value(Faker::Lorem.word).for(:query_sequence) }
     end
 
-    # тестируем валидации, когда x и y являются числами
+    # тестируем валидации, когда query_number и query_sequence являются числами
     context 'when query_number or query_sequence are digits (or last is sequnce of numbers)' do
       let(:query_number) { Faker::Number.within(range: 10..20) }
       let(:query_sequence) do

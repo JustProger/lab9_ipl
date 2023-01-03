@@ -8,11 +8,11 @@ class MaincontrController < ApplicationController
     @result = @maincontr.result
   end
 
+  private
+
   def maincontr_params
     params.permit(:query_number, :query_sequence) # явно задаем, какие параметры разрешены
   end
-
-  private
 
   def is_square?(x)
     (Math.sqrt(x) % 1).zero?
