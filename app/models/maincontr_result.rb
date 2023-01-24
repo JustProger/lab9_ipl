@@ -3,9 +3,9 @@
 class EquationOfNumberAndSequenceNumberValidator < ActiveModel::Validator
   def validate(record)
     # добавлена проверка на равенство nil, т. к. в ином случае в тестах модуля MaincontrResult в файле maincontr_result_spec.rb возникает ошибка, связанная с невозможностью применить .split к объекту nil (т. е. query_sequence не инициализирован?)
-    if (!record.query_sequence.nil? ? record.query_sequence.split.map(&:to_i).size : 'for tests of this model') != record.query_number.to_i
-      record.errors.add :base, 'Количество введённых чисел последовательности не соответствует тому, что было введено'
-    end
+    return unless (!record.query_sequence.nil? ? record.query_sequence.split.map(&:to_i).size : 'for tests of this model') != record.query_number.to_i
+
+    record.errors.add :base, 'Количество введённых чисел последовательности не соответствует тому, что было введено'
   end
 end
 
